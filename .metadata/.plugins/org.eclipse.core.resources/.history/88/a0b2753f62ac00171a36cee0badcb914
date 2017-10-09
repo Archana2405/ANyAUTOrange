@@ -1,0 +1,229 @@
+package com.AnyAUTOrange.Testcases;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.AnyAUTOrange.Pages.CreateAnAccount2;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import ReadExcelData.GetScreenshot;
+import Utility.BrowserFactory2;
+//import junit.framework.Assert;
+
+public class VerifyValidAccount2 
+{
+	static WebDriver driver;
+	XSSFWorkbook wb;
+	static String title=null;
+	static ExtentReports extent;
+	static ExtentTest test;
+	static String status=null;
+	static int countStatus=0;
+	static int rows=0;
+	static int j;
+	CreateAnAccount2 excel;
+	
+	
+	/*@BeforeTest
+	public void init()
+	{
+		extent=new ExtentReports("C:\\Software\\ExtentReports\\Reports\\advanceReport.html");
+		
+				
+	}
+	*/
+		
+	@Test
+	public static void checkValidAccount() throws Exception
+	{
+		File src=new File("./Configuration\\Config.property");
+		FileInputStream fis=new FileInputStream(src);
+		Properties prop=new Properties();
+		prop.load(fis);
+		
+		String url=prop.getProperty("URL");
+		String path=prop.getProperty("ExcelPath");
+		
+		
+		//This will launch specific browser and url
+		WebDriver driver= BrowserFactory2.startBrowser("Firefox", url);
+		
+		//Create Page object using Page Factory
+		CreateAnAccount2 createAccount= PageFactory.initElements(driver, CreateAnAccount2.class);
+		
+		//Call the methods
+		CreateAnAccount2 excel=new CreateAnAccount2(path);
+			
+		int row = excel.countRows("CreateAccount");
+		System.out.println("Rows="+ row);
+
+		for( j=3;j<row;j++)
+			{
+			
+			String fnm = excel.getData("CreateAccount", "FirstName",j);
+						
+			String lnm = excel.getData("CreateAccount",  "LastName", j);
+			
+			String email = excel.getData("CreateAccount",  "Email", j);
+			
+			String pass = excel.getData("CreateAccount", "Password", j);
+			
+			String cpass = excel.getData("CreateAccount", "ConfirmPassword",j);
+			
+			String comp = excel.getData("CreateAccount", "Company",j);
+			
+			String desig = excel.getData("CreateAccount",  "Designation",j);
+			
+			String ph = excel.getData("CreateAccount",  "Phone", j);
+			
+			String country_dropdown = excel.getData("CreateAccount", "Country", j);
+			
+			createAccount.create_an_account(
+					fnm, lnm, email, pass, cpass, comp, 
+					desig, ph, country_dropdown);
+				
+			Thread.sleep(1000);
+			
+			
+			title=driver.getTitle();
+			
+			//test=extent.startTest("captureScreenshot");
+			
+			Assert.assertEquals("Logining | AnyAut", title);
+			
+			status="Pass";
+			excel.setCellData("CreateAccount", "Status", j, status);
+			//test.log(LogStatus.PASS, "Test Passed as titles are equal");
+			//rows = excel.countRows("CreateAccount");
+		
+			//String[] statuses= new String[row];
+				
+			//countStatus= statuses.length;
+			//System.out.println(countStatus);
+			//status="Login | AnyAut";
+			//Assert.assertEquals("Logining | AnyAut", title);
+			//status="Pass";
+			//excel=new CreateAnAccount2("C:\\Software\\ExcelData\\DDF - AnyAUTOrange.xlsx");
+			//excel.setCellData("CreateAccount", "Status", row, status);
+			//excel=new CreateAnAccount2("C:\\Software\\ExcelData\\DDF - AnyAUTOrange.xlsx");
+			//for (rows = 1; rows <statuses.length; row++) 
+			//{
+					/*
+					if(title.equals("Login | AnyAut"))
+				    {
+				    	status="Pass";
+						excel.setCellData("CreateAccount", "Status", j, status);
+						
+				    }
+				    else 
+				    {
+				    	status="Fail";
+				    	excel.setCellData("CreateAccount", "Status", j, status);
+				    }
+				    	//rows=statuses.length;
+				    	 */
+					
+			//		test.log(LogStatus.PASS, "Test Passed as titles are equal");
+				//	CreateAnAccount2.Screenshot(driver,status);
+					 
+					// driver.get("https://anyaut.com/orange/sign-up.php");
+					 
+				
+				//}
+					
+			}
+					//driver.quit();
+				
+		}
+			
+				
+
+		
+
+	
+	
+	/*@Test
+	public void captureScreenshot() throws IOException
+	{
+		//extent=new ExtentReports("C:\\Software\\ExtentReports\\Reports\\advanceReport.html");
+		test=extent.startTest("captureScreenshot");
+		driver=new FirefoxDriver();
+		driver.get("https://anyaut.com/orange/index.php");
+	//	String title=driver.getTitle();
+		Assert.assertEquals("Logining | AnyAut", title);
+		test.log(LogStatus.PASS, "Test Passed as titles are equal");
+			
+		
+	}
+	*/
+	@AfterMethod
+	public void getResult(ITestResult result) throws Exception
+	{
+		if(result.getStatus()==ITestResult.FAILURE)
+		{
+			//String screenshotPath= CreateAnAccount2.captureScreenshot(driver, "screenshotForExtentReport");
+			//test.log(LogStatus.FAIL, result.getName());
+			//test.log(LogStatus.FAIL, "Screenshot Below: "+ test.addScreencast(screenshotPath));
+			
+			status="Fail";
+			System.out.println("Row= "+ j);
+		//	CreateAnAccount2 excel=new CreateAnAccount2("https://anyaut.com/orange/index.php");
+			
+			int rowsco = excel.countRows("CreateAccount");
+			System.out.println("excelRow= "+ rowsco);
+			
+			excel.setCellData("CreateAccount", "Status", j, status);
+			driver.quit();
+			//test.log(LogStatus.INFO, "Writing status in Excel");
+			
+		}
+		//extent.endTest(test);
+		
+	}
+	
+
+	
+	/*@AfterMethod
+	public void getResult(ITestResult result) throws IOException
+	{
+		if(result.getStatus()==ITestResult.FAILURE)
+		{
+			String screenshotPath= GetScreenshot.capture(driver, "screenshotForExtentReport");
+			test.log(LogStatus.FAIL, result.getName());
+			test.log(LogStatus.FAIL, "Screenshot Below: "+ test.addScreenCapture(screenshotPath));
+			
+		}		
+		extent.endTest(test);
+		
+		
+	}*/
+	/*
+	@AfterTest
+	public void endReport()
+	{
+		
+		extent.flush();
+		extent.close();
+
+		driver.get("file:///C://Software//ExtentReports//Reports//advanceReport.html");	
+	}
+	*/
+	}
+
+		
+

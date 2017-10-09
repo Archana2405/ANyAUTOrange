@@ -1,0 +1,51 @@
+package com.samsung.hometest;
+//you can also use imports, for example:
+//import java.util.*;
+
+//you can write to stdout for debugging purposes, e.g.
+//System.out.println("this is a debug message");
+import java.util.*;
+
+class Solution {
+ public int solution(int N) {
+     // write your code in Java SE 8
+     int [] digits = split_num(N);
+     Arrays.sort(digits);
+     int result = create_max_num(digits);
+     return result;
+ }
+ 
+ public int [] split_num(int N) {
+	 ArrayList<Integer> digits = new ArrayList<Integer>();
+	 while (N > 0) {
+		 int digit = N % 10;
+		 N = N /10;
+		 digits.add(digit);
+		 System.out.println(digit);
+	 }
+	 int[] result = new int[digits.size()];
+	 int i = 0;
+     for (Integer digit: digits) {
+    	 result[i] = digit;
+    	 i = i + 1;
+     }
+	 return result;
+ }
+ 
+ public int create_max_num(int [] digits) {
+ }
+ 
+ 
+ public static void test1() {
+	 Solution sol = new Solution();
+	 int new_num = sol.solution(213);
+	 assert(new_num == 321);
+	 
+ }
+
+  public static void main(String[] args) {
+		// TODO Auto-generated method stub
+     Solution.test1();
+  }
+
+}

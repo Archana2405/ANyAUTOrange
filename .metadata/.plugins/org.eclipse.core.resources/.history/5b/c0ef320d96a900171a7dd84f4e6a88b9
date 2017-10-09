@@ -1,0 +1,81 @@
+package WriteExcelData;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.AnyAUTOrange.Pages.CreateAnAccount2;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.LogStatus;
+
+import Utility.BrowserFactory2;
+
+
+public class WriteExcel2{
+	static String title;
+	
+@Test
+public void excelInput() throws Exception
+{
+	// Start browser
+	WebDriver driver= BrowserFactory2.startBrowser("firefox", "https://anyaut.com/orange/index.php");
+	
+	
+	// Create object of extent report and specify the Class name in get method
+	ExtentReports extent=ExtentReports.get(WriteExcel2.class);
+		
+	// Call init method and specify the location where you want to save this report
+	extent.init("C:\\Software\\ExtentReports\\Reports\\advanceReport.html", true);
+	
+	// Start Test
+	extent.startTest("Excel Report for Registration");
+	
+	
+	extent.log(LogStatus.INFO, "Browser is up and running");
+	//CreateAnAccount2 account=new CreateAnAccount2(driver);
+	CreateAnAccount2 excel=new CreateAnAccount2("C:\\Software\\ExcelData\\DDF - AnyAUTOrange.xlsx");
+	extent.log(LogStatus.INFO,"Application is up and running" );
+	
+	// get title
+	title=driver.getTitle();
+
+	String status=null;
+	int countStatus=0;
+	int rows = excel.countRows("CreateAccount");
+	String[] statuses= new String[rows];
+		
+	countStatus= statuses.length;
+	System.out.println(countStatus);
+	for (int row = 1; row <statuses.length; row++) 
+	{
+		//if(Assert.assertTrue(title.contains("Login | AnyAut")))
+		//{
+		
+		extent.log(LogStatus.INFO, "Title captured");
+		
+		// Verify title
+		Assert.assertTrue(title.contains("Login | AnyAut"));
+		extent.log(LogStatus.PASS, "Title is verified");
+		status="Pass";
+			
+		excel.setCellData("CreateAccount", "Status", row, status);
+		extent.log(LogStatus.INFO, "Writing status in Excel");	
+	
+		
+		extent.attachScreenshot("C:\\Users\\Tester\\Desktop\\LAHonda\\image1.jpg");
+		
+		//Close app
+		driver.quit();
+		extent.log(LogStatus.INFO, "Browser closed");
+		
+		 // close report
+		extent.endTest();
+		//}
+			
+	}
+	
+}
+
+
+
+}

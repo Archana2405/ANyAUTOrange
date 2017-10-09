@@ -1,0 +1,23 @@
+package SampleDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+public class WebDriverClass {
+
+	public static void main(String[] args) {
+	System.setProperty("webdriver.gecko.driver", "C:\\Users\\Tester\\Documents\\geckodriver-v0.10.0-win64\\geckodriver.exe");
+	WebDriver driver= new FirefoxDriver();
+	//driver.get("https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier");
+	//WebElement Email= driver.findElement(By.id("Email"));
+	//Email.sendKeys("INDIA");
+	//Email.clear();
+	//driver.findElement(By.id("Email")).sendKeys("India");;
+	//System.out.println("Application title is ========="+driver.getTitle());
+    //driver.quit();
+	driver.get("https://www.google.co.in");
+	}
+
+}

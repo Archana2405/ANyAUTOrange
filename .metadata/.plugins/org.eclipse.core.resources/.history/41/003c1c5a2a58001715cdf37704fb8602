@@ -1,0 +1,23 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+public class first {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		WebDriver driver;
+		//=new FirefoxDriver();
+		DesiredCapabilities capabilities;
+		 capabilities = DesiredCapabilities.firefox();
+		 capabilities.setCapability("firefox_binary","C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\Tester\\geckodriver.exe");
+		
+		 //capabilities.setCapability("marionette", true);
+		
+		 driver = new FirefoxDriver(capabilities);
+		//driver.get("http://google.com");
+
+	}
+
+}
