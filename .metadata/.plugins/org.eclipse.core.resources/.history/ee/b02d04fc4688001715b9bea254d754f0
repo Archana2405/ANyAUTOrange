@@ -1,0 +1,126 @@
+package com.samsung.hometest;
+// you can also use imports, for example:
+// import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+
+//you can also use imports, for example:
+//import java.util.*;
+
+//you can write to stdout for debugging purposes, e.g.
+//System.out.println("this is a debug message");
+import java.util.*;
+
+class Solution1 {
+ public int solution(int N) {
+     // write your code in Java SE 8
+
+     // error condition check
+     if (N < 0) {
+         System.out.println("Negative number given");
+         return N;
+     }
+	 // first split the number into digits
+     int [] digits = split_num(N);
+     // sort it in increasing order
+     Arrays.sort(digits);
+    
+     //iterate in rev of digits to combine the number
+     int result = create_max_num(digits);
+     return result;
+ }
+ 
+ /*
+  * @param N: the number to be split into digits
+  * @return int: return the splited number in the reverse order
+  * @desc:  i.e if input is 213 then output is {3, 1, 2}
+  */
+ public int [] split_num(int N) {
+	 ArrayList<Integer> digits = new ArrayList<Integer>();
+	 while (N > 0) {
+		 int digit = N % 10;
+		 N = N /10;
+		 digits.add(digit);
+		 //System.out.println(digit);
+	 }
+	 int[] result = new int[digits.size()];
+	 int i = 0;
+     for (Integer digit: digits) {
+    	 result[i] = digit;
+    	 i = i + 1;
+     }
+	 return result;
+ }
+ 
+ /*
+  * @input digits: array of input digits which need to be combined to form the number
+  * note that digit[0] is the smallest number and digits[size(digits)] is the biggest number
+  */
+ public int create_max_num(int [] digits) {
+	 int  result = 0;
+	 // iterate from biggest i.e max to smallest to 0 to create the number
+	 // numbers are created by the recursive formula i.e 
+	 // if 1, 2, 5 are there then 5*100 + 2*10 + 1 == (5*10^2 + (2*10^1 + (1*10^0))
+	 for (int i = digits.length - 1; i >= 0; i--) {
+		 int digit = digits[i];
+		 result += Math.pow(10,  i)* digit;
+	 }
+	 //System.out.println("max_num " + result);
+	 return result;
+ }
+ 
+ 
+ public static void test1() {
+	 
+	 Solution1 sol = new Solution1();
+	 int new_num = sol.solution(213);
+	 assert(new_num == 321);
+	 
+ }
+
+  public static void test2() {
+	 
+	 Solution1 sol = new Solution1();
+	 int new_num = sol.solution(553);
+	 assert(new_num == 553);
+	 
+ }
+  
+ public static void test3() {
+	 
+	 Solution1 sol = new Solution1();
+	 int new_num = sol.solution(555);
+	 assert(new_num == 555);
+	 
+ }
+
+ public static void test4() {
+	 
+	 Solution1 sol = new Solution1();
+	 int new_num = sol.solution(123);
+	 assert(new_num == 321);
+	 
+ }
+ 
+ 
+ public static void test5() {
+	 
+	 Solution1 sol = new Solution1();
+	 int new_num = sol.solution(0);
+	 assert(new_num == 0);
+	 
+ }
+
+  public static void main(String[] args) {
+		// TODO Auto-generated method stub
+     Solution1.test1();
+     Solution1.test2();
+
+     Solution1.test3();
+     Solution1.test4();
+     Solution1.test5();
+  }
+
+}

@@ -1,0 +1,17 @@
+package SampleDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+public class WebDriverClass {
+
+	public static void main(String[] args) {
+	System.setProperty("webdriver.gecko.driver", "C:\\Users\\Tester\\Documents\\geckodriver-v0.10.0-win64\\geckodriver.exe");
+	WebDriver driver= new FirefoxDriver();
+	driver.get("http:\\www.facebook.com");
+	System.out.println("Application title is ========="+driver.getTitle());
+    driver.quit();
+	}
+
+}

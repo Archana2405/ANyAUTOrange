@@ -1,0 +1,125 @@
+package WriteExcelData;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.AnyAUTOrange.Pages.CreateAnAccount2;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+import com.AnyAUTOrange.Pages.CreateAnAccount2;
+
+import Utility.BrowserFactory2;
+
+
+public class WriteExcel{
+	static String title;
+	ExtentReports report;
+	ExtentTest logger; 
+	WebDriver driver;
+	CreateAnAccount2 excel;
+	
+	
+	@Test
+	public void excelInput() throws Exception
+	{
+		
+	 
+	// Create object of extent report
+		report=new ExtentReports("C:\\Software\\ExtentReports\\Reports\\advanceReport.html");
+		
+	// Start Test
+	logger=report.startTest("Excel Report for Registration");
+		
+	// Start browser
+	WebDriver driver= BrowserFactory2.startBrowser("firefox", "https://anyaut.com/orange/index.php");
+	
+	logger.log(LogStatus.INFO, "Browser is up and running");
+	
+
+	 excel=new CreateAnAccount2("C:\\Software\\ExcelData\\DDF - AnyAUTOrange.xlsx");
+	logger.log(LogStatus.INFO,"Application is up and running" );
+	
+	// get title
+	title=driver.getTitle();
+
+	String status=null;
+	int countStatus=0;
+	int rows = excel.countRows("CreateAccount");
+	String[] statuses= new String[rows];
+		
+	countStatus= statuses.length;
+	System.out.println(countStatus);
+	for (int row = 1; row <statuses.length; row++) 
+	{
+		
+		logger.log(LogStatus.INFO, "Title captured");
+				
+		// Verify title
+		Assert.assertEquals("Logining | AnyAut", title);
+		
+		System.out.println("In Assert Verify");
+		
+		logger.log(LogStatus.PASS, "Title is verified");
+		status="Pass";
+		//CreateAnAccount2.captureScreenShot(driver,"Passed Testcase");
+		
+		excel.setCellData("CreateAccount", "Status", row, status);
+		
+		logger.log(LogStatus.INFO, "Writing status in Excel");	
+				
+	}
+
+		report.flush();
+		report.close();
+					
+		driver.get("file:///C://Software//ExtentReports//Reports//advanceReport.html");
+				 
+}
+	@AfterMethod
+	public void tearDown(ITestResult result) throws IOException
+	{
+	if(result.getStatus()==ITestResult.FAILURE)
+		{
+			System.out.println("In @AfterMethod()");
+			String screenshot_path= CreateAnAccount2.captureScreenshot(driver,"Screenshot for Extent Report");
+			//String image=logger.addScreenCapture(screenshot_path);
+		//	logger.log(LogStatus.FAIL, result.getThrowable());
+			logger.log(LogStatus.FAIL, "Screenshot below"+ logger.addScreenCapture(screenshot_path));
+			
+		
+		}
+	}
+	@AfterTest
+	public void endReport()
+	{
+		driver.close();
+		report.flush();
+		report.close();
+	}
+}
+		
+		
+	//	String screenshot_path=CreateAnAccount2.captureScreenShot(driver, result.getName());
+	//	driver.get("file:///C://Software//ExtentReports//Reports//advanceReport.html");
+	//	String image=logger.addScreenCapture(screenshot_path);
+	//	logger.log(LogStatus.FAIL, "Title verification", image);
+		
+		//System.out.println("Image ="+ image);	
+		
+		//System.out.println("In @AfterMethod()");
+		
+		
+	//report.flush();
+	//report.close();
+	//driver.quit();	
+	//driver.get("file:///C://Software//ExtentReports//Reports//advanceReport.html");
+
+	

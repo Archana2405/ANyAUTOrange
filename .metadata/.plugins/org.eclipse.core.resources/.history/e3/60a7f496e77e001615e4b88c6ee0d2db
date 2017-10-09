@@ -1,0 +1,16 @@
+package SamplePackage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;;
+
+public class Sample {
+public static void main(String [] args){
+WebDriver driver=new FirefoxDriver();
+driver.get("https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default&service=mail&sacu=1&scc=1&passive=1209600&ignoreShadow=0&acui=0#Email=singh.archana2405%40gmail.com");
+driver.findElement(By.id("Passwd")).sendKeys("India");
+
+
+
+}
+}

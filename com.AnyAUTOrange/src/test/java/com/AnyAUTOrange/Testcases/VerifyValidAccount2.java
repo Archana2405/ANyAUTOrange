@@ -78,9 +78,12 @@ public class VerifyValidAccount2
 		excel=new CreateAnAccount2(path);
 			
 		row = excel.countRows("CreateAccount");
-			
+		String[] statuses= new String[row];
 		
-		for( j=1;j<2;j++)
+		countStatus= statuses.length;
+		System.out.println(countStatus);
+		
+		for( j=1;j<row;j++)
 			{
 			
 			String fnm = excel.getData("CreateAccount", "FirstName",j);
@@ -114,6 +117,8 @@ public class VerifyValidAccount2
 			status="Pass";
 			excel.setCellData("CreateAccount", "Status", j, status);
 			test.log(LogStatus.PASS, "Test Passed as titles are equal");
+			
+			driver.get("https://anyaut.com/orange/sign-up.php");
 								
 			}
 					

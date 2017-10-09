@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;DemoTestNG&apos;&#x0D;&#x0A;- Original project: &apos;DemoTestNG&apos;&#x0D;&#x0A;- Original element: &apos;DemoTestNG/src/org.openqa.selenium&apos;" description="Delete element" element1="/src&lt;org.openqa.selenium" element2="/src&lt;org.openqa" element3="/src&lt;org" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1503379299012" subPackages="false" version="1.0"/>
+</session>

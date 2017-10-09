@@ -1,0 +1,16 @@
+package JenkinDemoP;
+
+import org.testng.annotations.Test;
+
+public class DemoJenkin {
+	@Test
+	public void testJenkins()
+	{
+		System.out.println("Demo Jenkins");
+		System.out.println("Running Jenkins with Selenium");
+		
+	}
+
+	
+	
+}
