@@ -83,7 +83,7 @@ public class VerifyValidAccount2
 		countStatus= statuses.length;
 		System.out.println(countStatus);
 		
-		for( j=1;j<row;j++)
+		for( j=3;j<row;j++)
 			{
 			
 			String fnm = excel.getData("CreateAccount", "FirstName",j);

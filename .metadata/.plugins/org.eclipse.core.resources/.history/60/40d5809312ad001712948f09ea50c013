@@ -117,11 +117,9 @@ public class VerifyValidAccount2
 			status="Pass";
 			excel.setCellData("CreateAccount", "Status", j, status);
 			test.log(LogStatus.PASS, "Test Passed as titles are equal");
-			
-			driver.get("https://anyaut.com/orange/sign-up.php");
 								
 			}
-					
+					driver.get("https://anyaut.com/orange/sign-up.php");
 					//driver.quit();
 				
 		}
