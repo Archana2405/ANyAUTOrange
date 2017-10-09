@@ -1,0 +1,9 @@
+FirefoxDriver=C:\\Users\\Tester\\geckodriver.exe
+
+ChromeDriver=C:\\Users\\Tester\\Downloads\\chromedriver_win32\\chromedriver.exe
+
+IEDriver=C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe
+
+URL=https://anyaut.com/orange/sign-up.php
+
+ExcelPath=C:\\Software\\ExcelData\\DDF - AnyAUTOrange.xlsx
